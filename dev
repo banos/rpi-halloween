@@ -1,0 +1,41 @@
+echo testing audio
+amixer set PCM 80%
+aplay /usr/share/sounds/alsa/Front_Center.wav
+echo should have heard that
+
+echo listing mics
+arecord -l
+
+sudo systemctl start pigpiod
+
+. ./venv/bin/activate
+
+export SENSOR_TRIG=17
+export SENSOR_ECHO=27
+export DETECTION_DISTANCE=150
+export SENSOR_TYPE='us-100'
+export SENSOR_TYPE='rcwl-1601'
+export SENSOR_TYPE='auto'
+
+
+export AI_SERVICE='groq'
+
+export ANTHROPIC_API_KEY='$(keyring get anthropic anthropic_api_key)'
+export GROQ_API_KEY='$(keyring get grok grok_api_key)'
+export ELEVENLABS_API_KEY="$(keyring get elevenlabs elevenlabs_api_key)"
+
+export ELEVENLABS_VOICE="5PWbsfogbLtky5sxqtBz" #not free
+export ELEVENLABS_VOICE="DGzg6RaUqxGRTHSBjfgF" #drill sergeant
+export ELEVENLABS_VOICE="wXvR48IpOq9HACltTmt7" #scary 1
+export ELEVENLABS_VOICE="2tTjAGX0n5ajDmazDcWk" #scary 2 raspy
+
+#export MIC_SPEECH_COOLDOWN=4.0
+
+export HALLOWEEN_DEBUG=0
+export ELEVENLABS_DEBUG=1
+export GROQ_DEBUG=1
+
+export HALLOWEEN_LOG_DIR=./log
+
+python halloween_detect_sensor.py
+

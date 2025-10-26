@@ -1,2 +1,64 @@
 # rpi-halloween
 An AI halloween monster
+
+# Halloween Monster for Raspberry Pi
+
+Interactive Halloween prop that detects trick-or-treaters and talks to them using AI.
+
+Just a play project using copilot, some AI integration and voice generation.
+
+Intended to work with a cheap ultrasonic sensor - mines not working very well(1601).
+
+Have fun.
+
+## What it does
+
+- Detects people with ultrasonic sensor
+- Plays spooky music through 3.5mm jack
+- Talks with AI-generated responses (Groq, OpenAI, or Anthropic)
+- Listens and responds to what people say
+- Changes voices randomly to keep it creepy
+- Gets more aggressive when people try to leave
+
+## Hardware needed
+
+- Raspberry Pi (tested on RPi 3B)
+- US-100 or RCWL-1601 ultrasonic sensor
+- USB microphone
+- Powered speaker on 3.5mm jack
+- Jumper wires for GPIO
+
+## Quick start
+
+1. Wire sensor to GPIO pins 17 (trigger) and 27 (echo)
+2. System deps (may not be complete)
+sudo apt update
+sudo apt install -y \
+    python3-pip \
+    python3-dev \
+    python3-rpi.gpio \
+    espeak \
+    portaudio19-dev \
+    alsa-utils \
+    sox \
+    libatlas-base-dev \
+    python3-pygame \
+    pigpiod
+3. Install dependencies (use a venv): `pip install -r requirements.txt`
+4. Set up API keys in keyring or export as env vars
+5. Run: `python halloween_detect_sensor.py`
+
+Check the `dev` file for example environment setup.
+
+## Notes
+
+- Needs root for GPIO access on Pi
+- Works with or without microphone (display-only mode)
+- Falls back to espeak if ElevenLabs quota runs out
+- Logs to `dev/monster.log` by default
+
+Have fun scaring the kidZ!
+
+Music available from https://pixabay.com/music/search/halloween/
+TTS - Elevenlabs
+AI - Groq
